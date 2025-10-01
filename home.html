@@ -12,6 +12,10 @@
     <p>Capturing moments, one frame at a time.</p>
   </header>
 
+  <div class="play-container">
+    <button id="play-btn">▶️ Play Slideshow</button>
+  </div>
+
   <section class="gallery">
     <div class="grid-item"><img src="flower1.JPG" alt="Photography 1"></div>
     <div class="grid-item"><img src="flower2.JPG" alt="Photography 2"></div>
@@ -87,6 +91,71 @@
       if (e.key === "ArrowRight") nextBtn.click();
       if (e.key === "ArrowLeft") prevBtn.click();
       if (e.key === "Escape") closeBtn.click();
+    });
+
+    let slideshowInterval;
+    const playBtn = document.getElementById("play-btn");
+
+    function startSlideshow() {
+      lightbox.classList.add("autoplay"); // add black background
+      playBtn.disabled = true; 
+      slideshowInterval = setInterval(() => {
+        currentIndex = (currentIndex + 1) % gallery.length;
+        showImage(currentIndex);
+      }, 4000); 
+    }
+
+    function stopSlideshow() {
+      clearInterval(slideshowInterval);
+      playBtn.disabled = false;
+      lightbox.classList.remove("autoplay"); // revert to white background
+    }
+
+    function showImage(index) {
+      // fade out current image
+      lightboxImg.classList.add("fade-out");
+
+      setTimeout(() => {
+        // change image src after fade out
+        lightboxImg.src = gallery[index].src;
+        lightboxImg.classList.remove("fade-out");
+      }, 600); 
+    }
+
+    // Play button click
+    playBtn.addEventListener("click", (e) => {
+      e.stopPropagation(); // prevent closing lightbox
+
+      // Show lightbox and first image
+      currentIndex = 0;
+      showImage(currentIndex);
+      lightbox.classList.add("active");
+
+      // Start the slideshow
+      startSlideshow();
+    });
+
+    // Close lightbox also stops slideshow
+    closeBtn.addEventListener("click", () => {
+      lightbox.classList.remove("active");
+      stopSlideshow();
+    });
+
+    // Optional: stop slideshow if user clicks background
+    lightbox.addEventListener("click", (e) => {
+      if (e.target === lightbox) {
+        lightbox.classList.remove("active");
+        stopSlideshow();
+      }
+    });
+
+    // Keyboard escape also stops slideshow
+    document.addEventListener("keydown", (e) => {
+      if (!lightbox.classList.contains("active")) return;
+      if (e.key === "Escape") {
+        lightbox.classList.remove("active");
+        stopSlideshow();
+      }
     });
 
     // Initialize Masonry

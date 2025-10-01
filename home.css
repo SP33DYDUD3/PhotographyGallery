@@ -24,6 +24,26 @@ header p {
   padding-bottom: 2rem;
 }
 
+.play-container {
+  text-align: center;
+  margin: 1rem 0 2rem 0; /* space below header */
+}
+
+#play-btn {
+  background: #0072ff;
+  color: white;
+  border: none;
+  padding: 12px 25px;
+  font-size: 1rem;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+#play-btn:hover {
+  background: #005bb5;
+}
+
 .gallery {
   margin-left: 60px;
   margin-top: 2rem;
@@ -67,6 +87,14 @@ header p {
   z-index: 999;
 }
 
+.lightbox.autoplay {
+  background: rgba(0, 0, 0, 1); /* black background for slideshow */
+}
+
+.lightbox.autoplay .nav-btn {
+  display: none; /* hide navigation buttons */
+}
+
 .lightbox.active {
   opacity: 1;
   pointer-events: auto;
@@ -77,6 +105,13 @@ header p {
   max-height: 80%;
   border-radius: 10px;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+  transition: opacity 1s ease; /* smooth fade */
+  opacity: 1;
+  margin-top: 10px;
+}
+
+.lightbox img.fade-out {
+  opacity: 0; /* invisible for fade effect */
 }
 
 .lightbox span {
