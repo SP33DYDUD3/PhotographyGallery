@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="home.css">
+  <title>Photography Gallery</title>
+</head>
+<body>
+  <header>
+    <h1>Gallery</h1>
+    <p>Capturing moments, one frame at a time.</p>
+  </header>
+
+  <section class="gallery">
+    <div class="grid-item"><img src="flower1.JPG" alt="Photography 1"></div>
+    <div class="grid-item"><img src="flower2.JPG" alt="Photography 2"></div>
+    <div class="grid-item"><img src="flower3.JPG" alt="Photography 3"></div>
+    <div class="grid-item"><img src="flower4.JPG" alt="Photography 4"></div>
+    <div class="grid-item"><img src="random1.JPG" alt="Photography 5"></div>
+    <div class="grid-item"><img src="random2.png" alt="Photography 6"></div>
+    <div class="grid-item"><img src="img3.JPG" alt="Photography 7"></div>
+  </section>
+
+  <!-- Lightbox -->
+  <div class="lightbox" id="lightbox">
+    <span id="close">&times;</span>
+    <img id="lightbox-img" src="" alt="Expanded view">
+  </div>
+
+  <!-- Masonry JS -->
+  <script src="https://unpkg.com/masonry-layout@4/dist/masonry.pkgd.min.js"></script>
+
+  <script>
+    // Lightbox functionality
+    const gallery = document.querySelectorAll(".gallery img");
+    const lightbox = document.getElementById("lightbox");
+    const lightboxImg = document.getElementById("lightbox-img");
+    const closeBtn = document.getElementById("close");
+
+    gallery.forEach(img => {
+      img.addEventListener("click", () => {
+        lightbox.classList.add("active");
+        lightboxImg.src = img.src;
+      });
+    });
+
+    closeBtn.addEventListener("click", () => {
+      lightbox.classList.remove("active");
+    });
+
+    lightbox.addEventListener("click", (e) => {
+      if (e.target !== lightboxImg) {
+        lightbox.classList.remove("active");
+      }
+    });
+
+    // Initialize Masonry
+    const grid = document.querySelector('.gallery');
+    new Masonry(grid, {
+      itemSelector: '.grid-item',
+      columnWidth: '.grid-item',
+      percentPosition: true,
+      gutter: 15
+    });
+  </script>
+</body>
+</html>
