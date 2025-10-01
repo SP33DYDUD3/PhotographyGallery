@@ -129,11 +129,10 @@ header p {
     width: 48%;
     margin-bottom: 0;
   }
-
   .nav-btn{
-    top: 80%;
+    top: 90%;
   }
   .lightbox img{
-    transform: translateY(-10%);
+    transform: translateY(-5%);
   }
 }
