@@ -112,15 +112,20 @@
     }
 
     function showImage(index) {
-      // fade out current image
-      lightboxImg.classList.add("fade-out");
+      if (lightbox.classList.contains("autoplay")) {
+        // fade out current image
+        lightboxImg.classList.add("fade-out");
 
-      setTimeout(() => {
-        // change image src after fade out
+        setTimeout(() => {
+          lightboxImg.src = gallery[index].src;
+          lightboxImg.classList.remove("fade-out");
+        }, 600);
+      } else {
+        // normal lightbox: just show instantly
         lightboxImg.src = gallery[index].src;
-        lightboxImg.classList.remove("fade-out");
-      }, 600); 
+      }
     }
+
 
     // Play button click
     playBtn.addEventListener("click", (e) => {

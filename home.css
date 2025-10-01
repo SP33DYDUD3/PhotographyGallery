@@ -88,12 +88,18 @@ header p {
 }
 
 .lightbox.autoplay {
-  background: rgba(0, 0, 0, 1); /* black background for slideshow */
+  background: rgba(0, 0, 0, 1); 
+  transition: background 0.5s ease;
 }
 
 .lightbox.autoplay .nav-btn {
   display: none; /* hide navigation buttons */
 }
+
+.lightbox.autoplay img {
+  transition: opacity 1s ease; /* fade effect only in slideshow */
+}
+
 
 .lightbox.active {
   opacity: 1;
