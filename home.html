@@ -47,7 +47,6 @@
 
     let currentIndex = 0;
 
-    // Open lightbox
     gallery.forEach((img, index) => {
       img.addEventListener("click", () => {
         currentIndex = index;
@@ -56,12 +55,10 @@
       });
     });
 
-    // Close lightbox
     closeBtn.addEventListener("click", () => {
       lightbox.classList.remove("active");
     });
 
-    // Navigate images
     function showImage(index) {
       lightboxImg.src = gallery[index].src;
     }
@@ -78,14 +75,12 @@
       showImage(currentIndex);
     });
 
-    // Close on background click
     lightbox.addEventListener("click", (e) => {
       if (e.target === lightbox) {
         lightbox.classList.remove("active");
       }
     });
 
-    // Keyboard navigation (optional)
     document.addEventListener("keydown", (e) => {
       if (!lightbox.classList.contains("active")) return;
       if (e.key === "ArrowRight") nextBtn.click();
@@ -96,8 +91,7 @@
     let slideshowInterval;
     const playBtn = document.getElementById("play-btn");
 
-    function startSlideshow() {
-      lightbox.classList.add("autoplay"); // add black background
+    function startSlideshow() 
       playBtn.disabled = true; 
       slideshowInterval = setInterval(() => {
         currentIndex = (currentIndex + 1) % gallery.length;
@@ -108,45 +102,37 @@
     function stopSlideshow() {
       clearInterval(slideshowInterval);
       playBtn.disabled = false;
-      lightbox.classList.remove("autoplay"); // revert to white background
+      lightbox.classList.remove("autoplay"); 
     }
 
     function showImage(index) {
       if (lightbox.classList.contains("autoplay")) {
-        // fade out current image
         lightboxImg.classList.add("fade-out");
-
         setTimeout(() => {
           lightboxImg.src = gallery[index].src;
           lightboxImg.classList.remove("fade-out");
         }, 600);
       } else {
-        // normal lightbox: just show instantly
         lightboxImg.src = gallery[index].src;
       }
     }
 
 
-    // Play button click
     playBtn.addEventListener("click", (e) => {
-      e.stopPropagation(); // prevent closing lightbox
+      e.stopPropagation(); 
 
-      // Show lightbox and first image
       currentIndex = 0;
       showImage(currentIndex);
       lightbox.classList.add("active");
 
-      // Start the slideshow
       startSlideshow();
     });
 
-    // Close lightbox also stops slideshow
     closeBtn.addEventListener("click", () => {
       lightbox.classList.remove("active");
       stopSlideshow();
     });
 
-    // Optional: stop slideshow if user clicks background
     lightbox.addEventListener("click", (e) => {
       if (e.target === lightbox) {
         lightbox.classList.remove("active");
@@ -154,7 +140,6 @@
       }
     });
 
-    // Keyboard escape also stops slideshow
     document.addEventListener("keydown", (e) => {
       if (!lightbox.classList.contains("active")) return;
       if (e.key === "Escape") {
@@ -163,7 +148,6 @@
       }
     });
 
-    // Initialize Masonry
     const grid = document.querySelector('.gallery');
     new Masonry(grid, {
       itemSelector: '.grid-item',

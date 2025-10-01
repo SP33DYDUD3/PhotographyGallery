@@ -26,7 +26,7 @@ header p {
 
 .play-container {
   text-align: center;
-  margin: 1rem 0 2rem 0; /* space below header */
+  margin: 1rem 0 2rem 0;
 }
 
 #play-btn {
@@ -93,11 +93,11 @@ header p {
 }
 
 .lightbox.autoplay .nav-btn {
-  display: none; /* hide navigation buttons */
+  display: none; 
 }
 
 .lightbox.autoplay img {
-  transition: opacity 1s ease; /* fade effect only in slideshow */
+  transition: opacity 1s ease;
 }
 
 
@@ -111,13 +111,13 @@ header p {
   max-height: 80%;
   border-radius: 10px;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
-  transition: opacity 1s ease; /* smooth fade */
+  transition: opacity 1s ease;
   opacity: 1;
   margin-top: 10px;
 }
 
 .lightbox img.fade-out {
-  opacity: 0; /* invisible for fade effect */
+  opacity: 0; 
 }
 
 .lightbox span {
