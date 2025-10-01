@@ -92,6 +92,7 @@
     const playBtn = document.getElementById("play-btn");
 
     function startSlideshow() {
+      lightbox.classList.add("autoplay"); // ✅ add this
       playBtn.disabled = true; 
       slideshowInterval = setInterval(() => {
         currentIndex = (currentIndex + 1) % gallery.length;
@@ -102,7 +103,7 @@
     function stopSlideshow() {
       clearInterval(slideshowInterval);
       playBtn.disabled = false;
-      lightbox.classList.remove("autoplay"); 
+      lightbox.classList.remove("autoplay"); // ✅ remove class
     }
 
     function showImage(index) {
