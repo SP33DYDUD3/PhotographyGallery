@@ -26,33 +26,67 @@
   <div class="lightbox" id="lightbox">
     <span id="close">&times;</span>
     <img id="lightbox-img" src="" alt="Expanded view">
+    <button class="nav-btn prev" id="prev">&#10094;</button>
+    <button class="nav-btn next" id="next">&#10095;</button>
   </div>
 
   <!-- Masonry JS -->
   <script src="https://unpkg.com/masonry-layout@4/dist/masonry.pkgd.min.js"></script>
 
   <script>
-    // Lightbox functionality
     const gallery = document.querySelectorAll(".gallery img");
     const lightbox = document.getElementById("lightbox");
     const lightboxImg = document.getElementById("lightbox-img");
     const closeBtn = document.getElementById("close");
+    const prevBtn = document.getElementById("prev");
+    const nextBtn = document.getElementById("next");
 
-    gallery.forEach(img => {
+    let currentIndex = 0;
+
+    // Open lightbox
+    gallery.forEach((img, index) => {
       img.addEventListener("click", () => {
+        currentIndex = index;
+        showImage(currentIndex);
         lightbox.classList.add("active");
-        lightboxImg.src = img.src;
       });
     });
 
+    // Close lightbox
     closeBtn.addEventListener("click", () => {
       lightbox.classList.remove("active");
     });
 
+    // Navigate images
+    function showImage(index) {
+      lightboxImg.src = gallery[index].src;
+    }
+
+    prevBtn.addEventListener("click", (e) => {
+      e.stopPropagation(); // prevent closing lightbox
+      currentIndex = (currentIndex - 1 + gallery.length) % gallery.length;
+      showImage(currentIndex);
+    });
+
+    nextBtn.addEventListener("click", (e) => {
+      e.stopPropagation();
+      currentIndex = (currentIndex + 1) % gallery.length;
+      showImage(currentIndex);
+    });
+
+    // Close on background click
     lightbox.addEventListener("click", (e) => {
-      if (e.target !== lightboxImg) {
+      if (e.target === lightbox) {
         lightbox.classList.remove("active");
       }
+    });
+
+    // Keyboard navigation (optional)
+    document.addEventListener("keydown", (e) => {
+      if (!lightbox.classList.contains("active")) return;
+      if (e.key === "ArrowRight") nextBtn.click();
+      if (e.key === "ArrowLeft") prevBtn.click();
+      if (e.key === "Escape") closeBtn.click();
     });
 
     // Initialize Masonry
@@ -64,5 +98,6 @@
       gutter: 15
     });
   </script>
+
 </body>
 </html>
